@@ -21,7 +21,7 @@ while (true)
 
     Console.WriteLine(new string('-', 100));
 
-    Console.Write("Please press the enter !!!");
+    Console.WriteLine("Please press the enter !!!");
     Console.ReadKey();
     
 }
@@ -34,9 +34,15 @@ async Task GetRaceResults(string year, string round)
 
         RaceResult result = JsonConvert.DeserializeObject<RaceResult>(response);
 
+        if (int.Parse(year) < 1950 || int.Parse(year) > DateTime.Now.Year)
+        {
+            Console.WriteLine("No race for this year");
+            return;
+        }
+
         if (result.MRData.RaceTable.Races.Length == 0)
         {
-            Console.WriteLine("No race for this year or this round");
+            Console.WriteLine("No race for this round");
             return;
         }
 
